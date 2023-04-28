@@ -17,14 +17,19 @@ const ContactUs = () => {
 
     const handleQuery = (e) => {
         e.preventDefault();
-        axios.post('/contactus', {email, subject, message})
-            .then(() => {
-                console.log("Email sent");
-                navigate('/');
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post("https://miniproject2backend.onrender.com/contactus", {
+            email,
+            subject,
+            message,
+          })
+          .then(() => {
+            console.log("Email sent");
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const [token, setToken] = useState();

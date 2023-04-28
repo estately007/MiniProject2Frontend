@@ -62,21 +62,27 @@ const FilterBox = ({cState, cCity, setFilters}) => {
     }
 
     function getFilteredProperties() {
-        axios.post('/getfilteredproperties', {state, city, minPrice, maxPrice, propertyType, minArea, maxArea})
-            .then((obj) => {
-                if(obj.data.error) {
-                    toast.error(obj.data.error);
-                } else {
-                    if(obj.data.properties.length == 0) {
-                        toast.warn("Currently, there are no properties listed that best suits your choices");
-                    } else {
-                        setFilters(obj.data.properties);
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post(
+            "https://miniproject2backend.onrender.com/getfilteredproperties",
+            { state, city, minPrice, maxPrice, propertyType, minArea, maxArea }
+          )
+          .then((obj) => {
+            if (obj.data.error) {
+              toast.error(obj.data.error);
+            } else {
+              if (obj.data.properties.length == 0) {
+                toast.warn(
+                  "Currently, there are no properties listed that best suits your choices"
+                );
+              } else {
+                setFilters(obj.data.properties);
+              }
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     return (

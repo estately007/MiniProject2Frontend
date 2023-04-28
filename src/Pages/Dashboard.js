@@ -40,13 +40,14 @@ const Dashboard = () => {
     }, []);
 
     function getAllProperties() {
-        axios.get('/getallproperties')
-            .then((obj) => {
-                setAllProperties(obj.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .get("https://miniproject2backend.onrender.com/getallproperties")
+          .then((obj) => {
+            setAllProperties(obj.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     return (

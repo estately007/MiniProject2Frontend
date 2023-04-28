@@ -68,62 +68,68 @@ const Signup = ({retailer}) => {
                 toast.success("Signing you up");
                 if (retailer) {
                     axios
-                        .post("/signupr", {
-                            fName,
-                            lName,
-                            email,
-                            phone,
-                            altPhone,
-                            state,
-                            city,
-                            address,
-                            pin,
-                            gender,
-                            password,
-                            vid,
-                            profile_image: img,
-                            retailer,
-                        })
-                        .then((obj) => {
-                            if (obj.data.error) {
-                                toast.error("User already present");
-                            } else {
-                                toast.success("Sign up successful");
-                                navigate("/");
-                            }
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
+                      .post(
+                        "https://miniproject2backend.onrender.com/signupr",
+                        {
+                          fName,
+                          lName,
+                          email,
+                          phone,
+                          altPhone,
+                          state,
+                          city,
+                          address,
+                          pin,
+                          gender,
+                          password,
+                          vid,
+                          profile_image: img,
+                          retailer,
+                        }
+                      )
+                      .then((obj) => {
+                        if (obj.data.error) {
+                          toast.error("User already present");
+                        } else {
+                          toast.success("Sign up successful");
+                          navigate("/");
+                        }
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
                 } else {
                     axios
-                        .post("/signupu", {
-                            fName,
-                            lName,
-                            email,
-                            phone,
-                            altPhone,
-                            state,
-                            city,
-                            address,
-                            pin,
-                            gender,
-                            password,
-                            vid,
-                            profile_image: img,
-                            retailer,
-                        })
-                        .then((obj) => {
-                            if (obj.data.error) {
-                                toast.error("User already present");
-                            } else {
-                                toast.success("Sign up successful");
-                                navigate("/");
-                            }
-                        })
-                        .catch((error) => {
-                            console.log(error);
-                        });
+                      .post(
+                        "https://miniproject2backend.onrender.com/signupu",
+                        {
+                          fName,
+                          lName,
+                          email,
+                          phone,
+                          altPhone,
+                          state,
+                          city,
+                          address,
+                          pin,
+                          gender,
+                          password,
+                          vid,
+                          profile_image: img,
+                          retailer,
+                        }
+                      )
+                      .then((obj) => {
+                        if (obj.data.error) {
+                          toast.error("User already present");
+                        } else {
+                          toast.success("Sign up successful");
+                          navigate("/");
+                        }
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
                 }
             } else {
                 toast.error("Password and Confirm Password are not matching");
@@ -148,13 +154,16 @@ const Signup = ({retailer}) => {
             toast.error("Please fill the email first");
             return;
         }
-        axios.post('/verifyemail', {email})
-            .then((obj) => {
-                setOtp(obj.data.otp);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post("https://miniproject2backend.onrender.com/verifyemail", {
+            email,
+          })
+          .then((obj) => {
+            setOtp(obj.data.otp);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         setShowDialog(true);
     }
 

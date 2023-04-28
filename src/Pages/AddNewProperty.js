@@ -94,7 +94,8 @@ const AddNewProperty = () => {
         }
 
         toast.success("Listing is in progress");
-        axios.post('/addnewproperty', {
+        axios
+          .post("https://miniproject2backend.onrender.com/addnewproperty", {
             primary_img: primaryImage,
             secondary_img: secondaryImages,
             title,
@@ -106,21 +107,23 @@ const AddNewProperty = () => {
             area,
             propertyType,
             amenities,
-            owner_id: userStore.user._id
-        })
-            .then((obj) => {
-                if (obj.data.error) {
-                    toast.error("Property not listed, Please try again!!!");
-                } else if(obj.data.errMsg) {
-                    toast.error("Some error occurred, Please try again after some time")
-                } else {
-                    toast.success("Property successfully listed");
-                    navigate('/dashboard');
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            owner_id: userStore.user._id,
+          })
+          .then((obj) => {
+            if (obj.data.error) {
+              toast.error("Property not listed, Please try again!!!");
+            } else if (obj.data.errMsg) {
+              toast.error(
+                "Some error occurred, Please try again after some time"
+              );
+            } else {
+              toast.success("Property successfully listed");
+              navigate("/dashboard");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     // amenities array -> lift security playground gardens water-supply power-backup parking-area gym shopping-mall hospital schools market-area

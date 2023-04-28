@@ -40,162 +40,206 @@ const LoginBoxRetailerUser = () => {
 
     const handleULogin = (e) => {
         e.preventDefault();
-        axios.post('/loginu', {useremail: useremailu, password: passwordu, retailer: false})
-            .then((obj) => {
-                if (!obj.data.userObj) {
-                    toast.error(obj.data.error);
-                    // console.log(obj.data.error);
-                } else {
-                    if (!obj.data.userObj.message) {
-                        localStorage.setItem('isLoggedIn', JSON.stringify(obj.data.token));
+        axios
+          .post("https://miniproject2backend.onrender.com/loginu", {
+            useremail: useremailu,
+            password: passwordu,
+            retailer: false,
+          })
+          .then((obj) => {
+            if (!obj.data.userObj) {
+              toast.error(obj.data.error);
+              // console.log(obj.data.error);
+            } else {
+              if (!obj.data.userObj.message) {
+                localStorage.setItem(
+                  "isLoggedIn",
+                  JSON.stringify(obj.data.token)
+                );
 
-                        setTimeout(() => {
-                            toast.success("Login Successful");
-                            navigate('/dashboard');
-                        }, 1000);
-                    } else {
-                        toast.error(obj.data.error);
-                        // console.log(obj.data.error);
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                setTimeout(() => {
+                  toast.success("Login Successful");
+                  navigate("/dashboard");
+                }, 1000);
+              } else {
+                toast.error(obj.data.error);
+                // console.log(obj.data.error);
+              }
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const handleRLogin = (e) => {
         e.preventDefault();
-        axios.post('/loginr', {useremail: useremailr, password: passwordr, retailer: true})
-            .then((obj) => {
-                if (!obj.data.userObj) {
-                    toast.error(obj.data.error);
-                    // console.log(obj.data.error);
-                } else {
-                    if (!obj.data.userObj.message) {
-                        localStorage.setItem('isLoggedIn', JSON.stringify(obj.data.token));
+        axios
+          .post("https://miniproject2backend.onrender.com/loginr", {
+            useremail: useremailr,
+            password: passwordr,
+            retailer: true,
+          })
+          .then((obj) => {
+            if (!obj.data.userObj) {
+              toast.error(obj.data.error);
+              // console.log(obj.data.error);
+            } else {
+              if (!obj.data.userObj.message) {
+                localStorage.setItem(
+                  "isLoggedIn",
+                  JSON.stringify(obj.data.token)
+                );
 
-                        setTimeout(() => {
-                            toast.success("Login Successful");
-                            navigate('/dashboard');
-                        }, 1000);
-                    } else {
-                        toast.error(obj.data.error);
-                        // console.log(obj.data.error);
-                    }
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+                setTimeout(() => {
+                  toast.success("Login Successful");
+                  navigate("/dashboard");
+                }, 1000);
+              } else {
+                toast.error(obj.data.error);
+                // console.log(obj.data.error);
+              }
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const [showModalu, setShowModalu] = React.useState(false);
     const [showModalr, setShowModalr] = React.useState(false);
 
     const handleUForgotPassword = (e) => {
-        axios.post('/forgotpasswordu', {email: forgotemailu, retailer: false})
-            .then((obj) => {
-                // console.log(obj);
-                if (!obj.data._id) {
-                    toast.error("User not found");
-                    // console.log("User not found");
-                } else {
-                    // User found and otp sent successfully
-                    toast.success("OTP sent successfully");
-                    // console.log("OTP sent yayy");
-                    setShowModalu(false);
-                    setOtpDialogu(true);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        axios
+          .post("https://miniproject2backend.onrender.com/forgotpasswordu", {
+            email: forgotemailu,
+            retailer: false,
+          })
+          .then((obj) => {
+            // console.log(obj);
+            if (!obj.data._id) {
+              toast.error("User not found");
+              // console.log("User not found");
+            } else {
+              // User found and otp sent successfully
+              toast.success("OTP sent successfully");
+              // console.log("OTP sent yayy");
+              setShowModalu(false);
+              setOtpDialogu(true);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const handleRForgotPassword = (e) => {
-        axios.post('/forgotpasswordr', {email: forgotemailr, retailer: true})
-            .then((obj) => {
-                if (!obj.data._id) {
-                    toast.error("User not found");
-                    // console.log("User not found");
-                } else {
-                    // User found and otp sent successfully
-                    toast.success("OTP sent successfully");
-                    // console.log("OTP sent yayy");
-                    setShowModalr(false);
-                    setOtpDialogr(true);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        axios
+          .post("https://miniproject2backend.onrender.com/forgotpasswordr", {
+            email: forgotemailr,
+            retailer: true,
+          })
+          .then((obj) => {
+            if (!obj.data._id) {
+              toast.error("User not found");
+              // console.log("User not found");
+            } else {
+              // User found and otp sent successfully
+              toast.success("OTP sent successfully");
+              // console.log("OTP sent yayy");
+              setShowModalr(false);
+              setOtpDialogr(true);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const handleVerifyOTPu = (e) => {
-        axios.post('/verifyotpu', {email: forgotemailu, otp: otpu, retailer: false})
-            .then((obj) => {
-                if (obj.data.success) {
-                    //     OTP verified
-                    toast.success("OTP verified successfully");
-                    setOtpVerifiedu(true);
-                } else {
-                    //     Incorrect OTP
-                    toast.error(obj.data.error);
-                    // console.log(obj.data.error);
-                }
-                setOtpDialogu(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post("https://miniproject2backend.onrender.com/verifyotpu", {
+            email: forgotemailu,
+            otp: otpu,
+            retailer: false,
+          })
+          .then((obj) => {
+            if (obj.data.success) {
+              //     OTP verified
+              toast.success("OTP verified successfully");
+              setOtpVerifiedu(true);
+            } else {
+              //     Incorrect OTP
+              toast.error(obj.data.error);
+              // console.log(obj.data.error);
+            }
+            setOtpDialogu(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const handleVerifyOTPr = (e) => {
-        axios.post('/verifyotpr', {email: forgotemailr, otp: otpr, retailer: true})
-            .then((obj) => {
-                if (obj.data.success) {
-                    //     OTP verified
-                    toast.success("OTP verified successfully");
-                    setOtpVerifiedr(true);
-                } else {
-                    //     Incorrect OTP
-                    toast.error(obj.data.error);
-                    // console.log(obj.data.error);
-                }
-                setOtpDialogr(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post("https://miniproject2backend.onrender.com/verifyotpr", {
+            email: forgotemailr,
+            otp: otpr,
+            retailer: true,
+          })
+          .then((obj) => {
+            if (obj.data.success) {
+              //     OTP verified
+              toast.success("OTP verified successfully");
+              setOtpVerifiedr(true);
+            } else {
+              //     Incorrect OTP
+              toast.error(obj.data.error);
+              // console.log(obj.data.error);
+            }
+            setOtpDialogr(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const handleUChangePassword = (e) => {
-        axios.post('/changepasswordu', {email: forgotemailu, newpassword: newPassword, retailer: false})
-            .then((obj) => {
-                if (obj.data.success) {
-                    toast.success("Password changed successfully");
-                    // console.log("Password changed successfully");
-                    setOtpVerifiedu(false);
-                } else {
-                    toast.error(obj.data.error);
-                    // console.log(obj.data.error);
-                }
-            });
+        axios
+          .post("https://miniproject2backend.onrender.com/changepasswordu", {
+            email: forgotemailu,
+            newpassword: newPassword,
+            retailer: false,
+          })
+          .then((obj) => {
+            if (obj.data.success) {
+              toast.success("Password changed successfully");
+              // console.log("Password changed successfully");
+              setOtpVerifiedu(false);
+            } else {
+              toast.error(obj.data.error);
+              // console.log(obj.data.error);
+            }
+          });
     }
 
     const handleRChangePassword = (e) => {
-        axios.post('/changepasswordr', {email: forgotemailr, newpassword: newPassword, retailer: true})
-            .then((obj) => {
-                if (obj.data.success) {
-                    toast.success("Password changed successfully");
-                    // console.log("Password changed successfully");
-                    setOtpVerifiedr(false);
-                } else {
-                    toast.error(obj.data.error);
-                    // console.log(obj.data.error);
-                }
-            });
+        axios
+          .post("https://miniproject2backend.onrender.com/changepasswordr", {
+            email: forgotemailr,
+            newpassword: newPassword,
+            retailer: true,
+          })
+          .then((obj) => {
+            if (obj.data.success) {
+              toast.success("Password changed successfully");
+              // console.log("Password changed successfully");
+              setOtpVerifiedr(false);
+            } else {
+              toast.error(obj.data.error);
+              // console.log(obj.data.error);
+            }
+          });
     }
 
     return (

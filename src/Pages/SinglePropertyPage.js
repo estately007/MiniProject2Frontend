@@ -36,17 +36,21 @@ const SinglePropertyPage = () => {
 
 
     function bookAppointment() {
-        axios.post(`/bookappointment/${userStore.user.email}`, {date, month, year, timeSlot, fullName})
-            .then((obj) => {
-                if(obj.data.message) {
-                    toast.success("Appointment booked successfully");
-                } else {
-                    toast.error("Appointment not booked, Please try again !!");
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post(
+            `https://miniproject2backend.onrender.com/bookappointment/${userStore.user.email}`,
+            { date, month, year, timeSlot, fullName }
+          )
+          .then((obj) => {
+            if (obj.data.message) {
+              toast.success("Appointment booked successfully");
+            } else {
+              toast.error("Appointment not booked, Please try again !!");
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         toggleVisitModal();
     }
 
@@ -84,48 +88,53 @@ const SinglePropertyPage = () => {
     }, []);
 
     function getSingleProperty() {
-        axios.post('/getsingleproperty', {id})
-            .then((obj) => {
-                setProperty(obj.data.property);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post("https://miniproject2backend.onrender.com/getsingleproperty", {
+            id,
+          })
+          .then((obj) => {
+            setProperty(obj.data.property);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     function handleAddToCart() {
-        axios.post('/addtocart', {
+        axios
+          .post("https://miniproject2backend.onrender.com/addtocart", {
             userid: userStore.user._id,
             propertyId: property._id,
             propertyImage: property.primary_img,
             propertyTitle: property.title,
             propertyPrice: property.price,
             propertyAddress: property.address,
-            retailer: userStore.user.role === 'retailer'
-        })
-            .then((obj) => {
-                setIsPresent(true);
-                setFlag(true);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            retailer: userStore.user.role === "retailer",
+          })
+          .then((obj) => {
+            setIsPresent(true);
+            setFlag(true);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     function handleRemoveFromCart() {
-        axios.post('/removefromcart', {
+        axios
+          .post("https://miniproject2backend.onrender.com/removefromcart", {
             userid: userStore.user._id,
             propertyId: property._id,
-            retailer: userStore.user.role === 'retailer'
-        })
-            .then((obj) => {
-                dispatch(removeItemFromCart(property._id));
-                setIsPresent(false);
-                setFlag(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+            retailer: userStore.user.role === "retailer",
+          })
+          .then((obj) => {
+            dispatch(removeItemFromCart(property._id));
+            setIsPresent(false);
+            setFlag(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     const [flag, setFlag] = useState(false);
@@ -179,32 +188,34 @@ const SinglePropertyPage = () => {
     }
 
     const handleAppointmentPayment = () => {
-        axios.get('/appointmentorders')
-            .then((obj) => {
-                if(obj.data.order) {
-                    openRazorPayDialog(obj.data.order);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .get("https://miniproject2backend.onrender.com/appointmentorders")
+          .then((obj) => {
+            if (obj.data.order) {
+              openRazorPayDialog(obj.data.order);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
     
     const [amount, setAmount] = useState(0);
     
     const handleTokenMoneyPayment = () => {
         togglePaymentModal();
-        axios.post('/tokenorders', {
-            amount: (3/100)*property.price
-        })
-            .then((obj) => {
-                if(obj.data.order) {
-                    openRazorPayDialog(obj.data.order);
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        axios
+          .post("https://miniproject2backend.onrender.com/tokenorders", {
+            amount: (3 / 100) * property.price,
+          })
+          .then((obj) => {
+            if (obj.data.order) {
+              openRazorPayDialog(obj.data.order);
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     }
 
     // amenities array -> lift security playground gardens water-supply power-backup parking-area gym shopping-mall hospital schools market-area
